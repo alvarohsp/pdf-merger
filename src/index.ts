@@ -1,8 +1,8 @@
-const { app, BrowserWindow, dialog, ipcMain } = require('electron');
-const pdfUtility = require('./pdf/pdf-utility');
-const path = require('path');
+import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import * as pdfUtility from './pdf/pdf-utility';
+import path from 'path';
 
-let mainWindow = undefined;
+let mainWindow: BrowserWindow;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -14,7 +14,7 @@ const createWindow = () => {
     width: 800,
     height: 600,
     maximizable: false,
-    // resizable: false,
+    resizable: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -26,11 +26,11 @@ const createWindow = () => {
   // mainWindow.webContents.openDevTools();
 };
 
-const changePage = (pageUrl) => {
+const changePage = (pageUrl: string) => {
   mainWindow.loadFile(path.join(__dirname, pageUrl));
 };
 
-const showMsgBox = (title, message, type) => {
+const showMsgBox = (title: string, message: string, type: string) => {
   dialog
     .showMessageBox({
       type: type,
@@ -42,7 +42,7 @@ const showMsgBox = (title, message, type) => {
     });
 };
 
-const showOpenFiles = async (title, message) => {
+const showOpenFiles = async (title: string, message: string) => {
   dialog
     .showOpenDialog({
       defaultPath: './',
@@ -62,7 +62,11 @@ const showOpenFiles = async (title, message) => {
     });
 };
 
-const showSaveFile = (title, message, binary) => {
+const showSaveFile = (
+  title: string,
+  message: string,
+  binary: Uint8Array
+) => {
   dialog
     .showSaveDialog({
       message: message,
@@ -70,7 +74,7 @@ const showSaveFile = (title, message, binary) => {
       filters: [],
     })
     .then((res) => {
-      if (!res.canceled) {
+      if (!res.canceled && res.filePath) {
         pdfUtility.saveFile(res.filePath, binary).then(() => {
           showMsgBox('Sucesso', 'Arquivo salvo com sucesso!', 'info');
         });
