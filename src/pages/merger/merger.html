@@ -5,13 +5,101 @@
     <title>PDF Merger</title>
     <link rel="stylesheet" href="merger.css" />
     <link rel="stylesheet" href="../../index.css" />
-    <script src="merger.js"></script>
+    <script src="merger.js" defer></script>
   </head>
-  <body>
+  <body onload="onInit()">
+    <header>
+      <div id="top-window"></div>
+    </header>
     <div class="main-div">
       <h1>Select Files to Merge</h1>
-      <div class="btns-div">
-        <button onclick="onClickBrowse()">Browse...</button>
+      <div class="sub-main-div">
+        <div class="text-div">
+          <p>Only PDF, JPG and PNG Files are Supported.</p>
+        </div>
+        <div class="btns-div">
+          <div
+            onclick="clearFileList()"
+            id="clear-file-btn"
+            class="start-btn hide"
+          >
+            <p>Clear</p>
+          </div>
+          <div
+            onclick="onClickBrowse()"
+            id="merge-btn"
+            class="start-btn"
+          >
+            <p>Browse...</p>
+          </div>
+          <div
+            onclick="saveFileList()"
+            id="save-file-btn"
+            class="start-btn hide"
+          >
+            <p>Save File...</p>
+          </div>
+        </div>
+        <div id="files-section">
+          <div id="files-margin">
+            <!-- <div class="file-block">
+              <svg width="64" height="64">
+                <image
+                  href="../../assets/svg/pdf_file_icon.svg"
+                  height="64"
+                  width="64"
+                />
+              </svg>
+              <div class="file-info">
+                <p class="file-name">Nome do 56zzzP.pdf</p>
+                <p class="file-size">8mb</p>
+              </div>
+            </div>
+            <div class="file-block">
+              <svg width="64" height="64">
+                <image
+                  href="../../assets/svg/jpg_file_icon.svg"
+                  height="64"
+                  width="64"
+                />
+              </svg>
+              <div class="file-info">
+                <p class="file-name">
+                  Nome do asdasdasdCCCCCCC56zzzP.jpg
+                </p>
+                <p class="file-size">1mb</p>
+              </div>
+            </div>
+            <div class="file-block">
+              <svg width="64" height="64">
+                <image
+                  href="../../assets/svg/png_file_icon.svg"
+                  height="64"
+                  width="64"
+                />
+              </svg>
+              <div class="file-info">
+                <p class="file-name">Nome 123XXX.png</p>
+                <p class="file-size">11mb</p>
+              </div>
+            </div>
+            <div class="file-block">
+              <svg width="64" height="64">
+                <image
+                  href="../../assets/svg/jpg_file_icon.svg"
+                  height="64"
+                  width="64"
+                />
+              </svg>
+              <div class="file-info">
+                <p class="file-name">
+                  Nome do asdasdasdCCCCCCC56zzzP.jpg
+                </p>
+                <p class="file-size">1mb</p>
+              </div>
+            </div> -->
+          </div>
+        </div>
       </div>
     </div>
   </body>

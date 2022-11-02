@@ -1,6 +1,8 @@
 import { app, BrowserWindow, dialog, ipcMain, shell } from 'electron';
 import * as pdfUtility from './pdf/pdf-utility';
 import path from 'path';
+import { OpenDialogReturnValue } from 'electron/main';
+import { FileInfo } from './models/file-info.model';
 
 let mainWindow: BrowserWindow;
 
@@ -48,24 +50,30 @@ const showMsgBox = (title: string, message: string, type: string) => {
     });
 };
 
-const showOpenFiles = async (title: string, message: string) => {
-  dialog
-    .showOpenDialog({
-      defaultPath: './',
-      message: message,
-      title: title,
-      properties: ['multiSelections', 'openFile'],
-    })
-    .then((res) => {
-      console.log(res);
-      if (!res.canceled) {
-        pdfUtility
-          .mergePdf(res.filePaths)
-          .then((res) =>
-            showSaveFile('Salvar como', 'Salvar como', res)
-          );
-      }
-    });
+const showOpenFiles = async (
+  title: string,
+  message: string
+): Promise<OpenDialogReturnValue> => {
+  return dialog.showOpenDialog({
+    defaultPath: './',
+    message: message,
+    title: title,
+    filters: [
+      {
+        extensions: ['pdf', 'png', 'jpg'],
+        name: 'All Supported Formats',
+      },
+      {
+        extensions: ['pdf'],
+        name: 'Documents',
+      },
+      {
+        extensions: ['png', 'jpg'],
+        name: 'Images',
+      },
+    ],
+    properties: ['multiSelections', 'openFile'],
+  });
 };
 
 const showSaveFile = (
@@ -77,7 +85,12 @@ const showSaveFile = (
     .showSaveDialog({
       message: message,
       title: title,
-      filters: [],
+      filters: [
+        {
+          extensions: ['pdf'],
+          name: 'PDF Document',
+        },
+      ],
     })
     .then((res) => {
       if (!res.canceled && res.filePath) {
@@ -111,10 +124,21 @@ ipcMain.on('browseButton', (event, args) => {
   showOpenFiles('Selecione os arquivos:', 'Selecione os arquivos');
 });
 
-ipcMain.on('saveFile', (event, args) => {
-  showSaveFile('Salvar como', 'Salvar como', args);
-});
-
 ipcMain.on('openExShell', (event, args: string) => {
   shell.openExternal(args);
+});
+
+ipcMain.on('mergeFilesAndSave', async (event, args: FileInfo[]) => {
+  const binary = await pdfUtility.mergePdf(args);
+  showSaveFile('Salvar como', 'Salvar como', binary);
+});
+
+ipcMain.handle('browseFiles', async (event, args) => {
+  const filesSelected = await showOpenFiles(
+    'Selecione os arquivos:',
+    'Selecione os arquivos'
+  );
+  if (!filesSelected.canceled) {
+    return await pdfUtility.getFilesInfo(filesSelected.filePaths);
+  }
 });

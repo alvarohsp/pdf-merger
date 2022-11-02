@@ -1,12 +1,26 @@
 import { PDFDocument, PDFPage } from 'pdf-lib';
 import fs from 'fs';
 import { DocumentFile } from '../models/document-file.model';
+import { FileInfo } from '../models/file-info.model';
+
+export async function getFilesInfo(
+  urlArray: string[]
+): Promise<FileInfo[]> {
+  const finalList: FileInfo[] = [];
+
+  for (let file of urlArray) {
+    const { size } = fs.statSync(file);
+    finalList.push(new FileInfo(file, size));
+  }
+
+  return finalList;
+}
 
 export async function mergePdf(
-  urlArray: string[]
+  filesList: FileInfo[]
 ): Promise<Uint8Array> {
   try {
-    return await mergeFiles(urlArray);
+    return await mergeFiles(filesList);
   } catch (err) {
     throw new Error(`Erro.. ${err}`);
   }
@@ -20,11 +34,13 @@ export async function saveFile(
   fs.writeFileSync(finalUrl, binary);
 }
 
-async function mergeFiles(urlArray: string[]): Promise<Uint8Array> {
+async function mergeFiles(
+  fileLists: FileInfo[]
+): Promise<Uint8Array> {
   const mergedPdf = await PDFDocument.create();
 
-  for (let document of urlArray) {
-    let documentFile = await loadFile(document);
+  for (let document of fileLists) {
+    let documentFile = await loadFile(document.url);
 
     switch (documentFile.ext) {
       case '.pdf':
@@ -71,21 +87,10 @@ async function loadFile(url: string): Promise<DocumentFile> {
       await PDFDocument.load(fs.readFileSync(url)),
       getExtension(url)
     );
-
-    // return {
-    //   data: await PDFDocument.load(fs.readFileSync(url)),
-    //   ext: getExtension(url),
-    // };
   } else {
     return new DocumentFile(fs.readFileSync(url), getExtension(url));
-    // return {
-    //   data: fs.readFileSync(url),
-    //   ext: getExtension(url),
-    // };
   }
 }
-
-async function returnPngEmbed() {}
 
 function getExtension(filename: string) {
   var i = filename.lastIndexOf('.');
