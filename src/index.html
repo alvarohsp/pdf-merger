@@ -7,15 +7,30 @@
     <script src="renderer.js" defer></script>
   </head>
   <body>
+    <header>
+      <div id="top-window"></div>
+    </header>
     <div class="main-div">
       <h1>PDF Merger</h1>
-      <p>Welcome to PDF Merger v<span id="app-version"></span>.</p>
-
-      <div class="btns-div">
-        <button onclick="onClickMergeBtn()" id="merge-btn">
-          Merge
-        </button>
+      <div class="sub-main-div">
+        <div class="text-div">
+          <p>Welcome to PDF Merger</p>
+        </div>
+        <div class="btns-div">
+          <div
+            onclick="onClickMergeBtn()"
+            id="merge-btn"
+            class="start-btn"
+          >
+            <p>Get Started</p>
+          </div>
+        </div>
       </div>
     </div>
+    <footer>
+      <div>
+        <p onclick="openLinkGithub()">Álvaro HSP</p>
+      </div>
+    </footer>
   </body>
 </html>

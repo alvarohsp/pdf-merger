@@ -1,29 +1,35 @@
-import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, shell } from 'electron';
 import * as pdfUtility from './pdf/pdf-utility';
 import path from 'path';
 
 let mainWindow: BrowserWindow;
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
 const createWindow = () => {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    maximizable: false,
-    resizable: true,
+    width: 1024,
+    height: 720,
+    maximizable: true,
+    resizable: false,
+    frame: false,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#2f3241',
+      symbolColor: '#74b1be',
+      height: 40,
+    },
+    transparent: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
 
-  // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
-
-  // mainWindow.webContents.openDevTools();
+  mainWindow.removeMenu();
+  mainWindow.webContents.openDevTools();
 };
 
 const changePage = (pageUrl: string) => {
@@ -107,4 +113,8 @@ ipcMain.on('browseButton', (event, args) => {
 
 ipcMain.on('saveFile', (event, args) => {
   showSaveFile('Salvar como', 'Salvar como', args);
+});
+
+ipcMain.on('openExShell', (event, args: string) => {
+  shell.openExternal(args);
 });

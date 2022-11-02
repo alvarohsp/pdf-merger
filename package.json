@@ -1,8 +1,8 @@
 {
   "name": "pdf-merger",
   "productName": "pdf-merger",
-  "version": "0.1.0-prealpha-2",
-  "description": "My Electron application description",
+  "version": "0.2.0-prealpha",
+  "description": "Simple PDF utility tool",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --extensions \".ts\" --out-dir dist --copy-files --no-copy-ignored",
