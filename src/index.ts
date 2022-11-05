@@ -1,12 +1,18 @@
 import { app, BrowserWindow, dialog, ipcMain, shell } from 'electron';
-import * as pdfUtility from './pdf/pdf-utility';
 import path from 'path';
 import { OpenDialogReturnValue } from 'electron/main';
 import { FileInfo } from './models/file-info.model';
+import { handleSquirrelEvent } from './handle-squirrel';
+import { PdfUtil } from './utils/pdf-utils';
 
 let mainWindow: BrowserWindow;
 
 if (require('electron-squirrel-startup')) {
+  app.quit();
+}
+
+if (handleSquirrelEvent(app)) {
+  console.log('');
   app.quit();
 }
 
@@ -31,7 +37,7 @@ const createWindow = () => {
 
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
   mainWindow.removeMenu();
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 const changePage = (pageUrl: string) => {
@@ -94,7 +100,7 @@ const showSaveFile = (
     })
     .then((res) => {
       if (!res.canceled && res.filePath) {
-        pdfUtility.saveFile(res.filePath, binary).then(() => {
+        PdfUtil.saveFile(res.filePath, binary).then(() => {
           showMsgBox('Sucesso', 'Arquivo salvo com sucesso!', 'info');
         });
       }
@@ -120,7 +126,7 @@ ipcMain.on('mergeButton', (event, args) => {
   changePage(args);
 });
 
-ipcMain.on('browseButton', (event, args) => {
+ipcMain.on('browseButton', () => {
   showOpenFiles('Selecione os arquivos:', 'Selecione os arquivos');
 });
 
@@ -129,16 +135,16 @@ ipcMain.on('openExShell', (event, args: string) => {
 });
 
 ipcMain.on('mergeFilesAndSave', async (event, args: FileInfo[]) => {
-  const binary = await pdfUtility.mergePdf(args);
+  const binary = await PdfUtil.mergePdf(args);
   showSaveFile('Salvar como', 'Salvar como', binary);
 });
 
-ipcMain.handle('browseFiles', async (event, args) => {
+ipcMain.handle('browseFiles', async () => {
   const filesSelected = await showOpenFiles(
     'Selecione os arquivos:',
     'Selecione os arquivos'
   );
   if (!filesSelected.canceled) {
-    return await pdfUtility.getFilesInfo(filesSelected.filePaths);
+    return await PdfUtil.getFilesInfo(filesSelected.filePaths);
   }
 });

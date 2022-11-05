@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export {};
 
 declare global {
@@ -6,5 +7,11 @@ declare global {
       sendMsg(channel: string, args?: any): void;
       invoke(channel: string, args?: any): Promise<any>;
     };
+  }
+
+  interface FileBlock extends HTMLElement {
+    fileName: string;
+    fileSize: string;
+    extension: string;
   }
 }

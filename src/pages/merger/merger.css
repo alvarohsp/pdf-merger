@@ -16,35 +16,6 @@
   display: none;
 }
 
-.file-block {
-  height: 65px;
-  width: 250px;
-  display: inline-flex;
-  background-color: #272a36;
-  padding: 6px 6px 6px 4px;
-  border-radius: 4px;
-  color: #b9bbc1;
-  margin-bottom: 6px;
-  margin-right: 6px;
-}
-
-.file-info {
-  text-align: left;
-  width: 185px;
-}
-.file-info p {
-  padding: 0px 0px 0px 0px;
-}
-
-.file-name {
-  height: 44px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.file-size {
-}
-
 #files-section::-webkit-scrollbar {
   width: 14px;
 }

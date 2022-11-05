@@ -1,4 +1,15 @@
 module.exports = {
+  generatorOpts: {
+    minified: false,
+  },
+  // plugins: [
+  //   [
+  //     'babel-plugin-transform-builtin-classes',
+  //     {
+  //       globals: ['Array', 'Error', 'HTMLElement'],
+  //     },
+  //   ],
+  // ],
   presets: [
     [
       '@babel/preset-env',
@@ -6,18 +17,10 @@ module.exports = {
         targets: {
           electron: '21',
         },
+        modules: 'commonjs',
       },
     ],
-    '@babel/preset-typescript',
-    // [
-    //   'minify',
-    //   {
-    //     mangle: {
-    //       exclude: ['MyCustomError'],
-    //     },
-    //     keepFnName: false,
-    //   },
-    // ],
+    ['@babel/preset-typescript'],
   ],
   ignore: ['**/*.spec.ts', '**/@types'],
 };

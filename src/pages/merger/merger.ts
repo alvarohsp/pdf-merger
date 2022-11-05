@@ -31,57 +31,19 @@ function updateView(): void {
 }
 
 function drawFile(element: FileInfo): void {
-  const fileElement = document.createElement('div');
-  fileElement.classList.add('file-block');
-  const svgElement = document.createElement('svg');
-  svgElement.setAttribute('width', '64');
-  svgElement.setAttribute('height', '64');
-
-  const imageElement = document.createElement('img');
-  imageElement.src = getImageByExtension(element.extension);
-
-  imageElement.setAttribute('height', '64');
-  imageElement.setAttribute('width', '64');
-
-  svgElement.appendChild(imageElement);
-  fileElement.appendChild(svgElement);
-
-  const fileInfoElement = document.createElement('div');
-  fileInfoElement.classList.add('file-info');
-  const fileNameElement = document.createElement('p');
-  fileNameElement.classList.add('file-name');
-  fileNameElement.innerText = element.name;
-
-  const fileSizeElement = document.createElement('p');
-  fileSizeElement.classList.add('file-size');
-  fileSizeElement.innerText = element.size;
-
-  fileInfoElement.appendChild(fileNameElement);
-  fileInfoElement.appendChild(fileSizeElement);
-
-  fileElement.appendChild(fileInfoElement);
+  const fileElement = document.createElement('file-block');
+  fileElement.setAttribute('fileName', element.name);
+  fileElement.setAttribute('fileSize', element.size);
+  fileElement.setAttribute('extension', element.extension);
 
   fileListElement.appendChild(fileElement);
-}
-
-function getImageByExtension(extension: string): string {
-  switch (extension) {
-    case 'pdf':
-      return '../../assets/svg/pdf_file_icon.svg';
-
-    case 'jpg':
-      return '../../assets/svg/jpg_file_icon.svg';
-
-    case 'png':
-      return '../../assets/svg/png_file_icon.svg';
-  }
 }
 
 function clearFileListElement(): void {
   fileListElement.innerHTML = '';
 }
 
-export function clearFileList(): void {
+function clearFileList(): void {
   fileList = [];
   clearFileListElement();
   clearListElement.classList.add('hide');

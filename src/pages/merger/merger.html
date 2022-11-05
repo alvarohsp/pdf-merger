@@ -4,12 +4,33 @@
     <meta charset="UTF-8" />
     <title>PDF Merger</title>
     <link rel="stylesheet" href="merger.css" />
+    <link
+      rel="stylesheet"
+      href="../../shared/components/file-block/file-block.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../../shared/components/window-header/window-header.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../../shared/components/round-button/round-button.css"
+    />
     <link rel="stylesheet" href="../../index.css" />
+    <script>
+      var exports = {};
+    </script>
+    <script src="../../shared/components/round-button/round-button.js"></script>
+    <script src="../../shared/components/file-block/file-block.js"></script>
+    <script
+      src="../../shared/components/window-header/window-header.js"
+      defer
+    ></script>
     <script src="merger.js" defer></script>
   </head>
   <body onload="onInit()">
     <header>
-      <div id="top-window"></div>
+      <window-header></window-header>
     </header>
     <div class="main-div">
       <h1>Select Files to Merge</h1>
@@ -18,14 +39,31 @@
           <p>Only PDF, JPG and PNG Files are Supported.</p>
         </div>
         <div class="btns-div">
-          <div
+          <round-button
+            onclick="clearFileList()"
+            label="Clear"
+            hide="true"
+            id="clear-file-btn"
+          ></round-button>
+          <round-button
+            onclick="onClickBrowse()"
+            label="Browse..."
+          ></round-button>
+          <round-button
+            onclick="saveFileList()"
+            label="Save File..."
+            hide="true"
+            id="save-file-btn"
+          ></round-button>
+
+          <!-- <div
             onclick="clearFileList()"
             id="clear-file-btn"
             class="start-btn hide"
           >
             <p>Clear</p>
-          </div>
-          <div
+          </div> -->
+          <!-- <div
             onclick="onClickBrowse()"
             id="merge-btn"
             class="start-btn"
@@ -38,7 +76,7 @@
             class="start-btn hide"
           >
             <p>Save File...</p>
-          </div>
+          </div> -->
         </div>
         <div id="files-section">
           <div id="files-margin">
