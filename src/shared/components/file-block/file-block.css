@@ -10,10 +10,18 @@
   margin-right: 6px;
 }
 
+.dv-file-block:hover .dv-file-btn {
+  transition: 0.2s;
+  opacity: 1;
+}
+
 .file-info {
   text-align: left;
   width: 185px;
+  display: flex;
+  justify-content: space-between;
 }
+
 .file-info p {
   padding: 0px 0px 0px 0px;
 }
@@ -22,4 +30,40 @@
   height: 44px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.dv-file-btn {
+  display: flex;
+  width: 17px;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-evenly;
+  transition: 0.2s;
+  opacity: 0;
+}
+
+.dv-file-group {
+  width: 165px;
+}
+
+.p-btn-bar {
+  height: 14px;
+  width: 14px;
+  opacity: 0.5;
+  transition: 0.4s;
+}
+
+.p-btn-bar:hover {
+  cursor: pointer;
+  height: 14px;
+  width: 14px;
+  opacity: 1;
+  transition: 0.4s;
+}
+
+.dv-btn-bar {
+  height: 18px;
+  width: 16px;
+  background-color: #2f3241;
+  border-radius: 2px;
 }
