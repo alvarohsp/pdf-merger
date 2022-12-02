@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Page Configuration</title>
+    <link rel="stylesheet" href="page-config.css" />
+    <link rel="stylesheet" href="../../index.css" />
+    <link
+      rel="stylesheet"
+      href="../../shared/components/window-header/window-header.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../../shared/components/round-button/round-button.css"
+    />
+    <script>
+      var exports = {};
+    </script>
+    <script src="../../shared/components/window-header/window-header.js"></script>
+    <script src="../../shared/components/round-button/round-button.js"></script>
+    <script src="page-config.js" defer></script>
+  </head>
+  <body onload="onInit()" class="dv-body">
+    <header>
+      <window-header></window-header>
+    </header>
+    <div class="main-div">
+      <h1>Image Resize</h1>
+      <div class="main-div-margin-pc">
+        <div class="sub-main-div-img">
+          <div id="dv-image-bg">
+            <div id="dv-image-edit">
+              <img id="image-edit" src="" />
+            </div>
+          </div>
+        </div>
+        <div class="sub-main-div-img-btn">
+          <div class="text-div">
+            <p>Options</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btns-div-edit">
+      <round-button
+        onclick="onClickOkBtn()"
+        label="OK"
+      ></round-button>
+      <round-button
+        onclick="onClickCancelBtn()"
+        label="Cancel"
+      ></round-button>
+    </div>
+    <!-- <footer>
+      <div>
+        <p onclick="openLinkGithub()">Álvaro HSP</p>
+      </div>
+    </footer> -->
+  </body>
+</html>

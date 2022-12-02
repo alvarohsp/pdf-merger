@@ -1,5 +1,5 @@
 .dv-file-block {
-  height: 65px;
+  height: 78px;
   width: 250px;
   display: inline-flex;
   background-color: #272a36;
@@ -27,7 +27,8 @@
 }
 
 .file-name {
-  height: 44px;
+  line-height: 17px;
+  height: 52px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -37,9 +38,14 @@
   width: 17px;
   flex-direction: column;
   text-align: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   transition: 0.2s;
   opacity: 0;
+}
+
+.img-svg {
+  align-self: center;
+  display: flex;
 }
 
 .dv-file-group {

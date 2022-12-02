@@ -1,7 +1,7 @@
 {
   "name": "pdf-merger",
   "productName": "PDF Merger",
-  "version": "0.6.0-beta",
+  "version": "0.7.0-beta",
   "description": "Simple PDF utility tool",
   "main": "dist/index.js",
   "scripts": {
@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
+    "image-size": "^1.0.2",
     "pdf-lib": "^1.17.1"
   },
   "devDependencies": {

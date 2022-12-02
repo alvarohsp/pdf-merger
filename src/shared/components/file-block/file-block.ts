@@ -9,6 +9,7 @@ class FileBlock extends HTMLElement {
     const svgElement = document.createElement('svg');
     svgElement.setAttribute('width', '64');
     svgElement.setAttribute('height', '64');
+    svgElement.classList.add('img-svg');
 
     const imageElement = document.createElement('img');
     imageElement.src = getImageByExtension(
@@ -64,19 +65,19 @@ class FileBlock extends HTMLElement {
     insideFileInfoBtns.appendChild(insideFileInfoBtnBar1);
 
     //////////////////////////////////////
-    // CREATING NEXT BUTTON
+    // CREATING EDIT BUTTON
 
-    if (this.getAttribute('last') === 'false') {
+    if (this.getAttribute('extension') !== 'pdf') {
       const insideFileInfoBtnBar2 = document.createElement('div');
       insideFileInfoBtnBar2.classList.add('dv-btn-bar');
 
       const imageBtn2 = document.createElement('img');
-      imageBtn2.src = getImageByBtn('next');
+      imageBtn2.src = getImageByBtn('edit');
       imageBtn2.classList.add('p-btn-bar');
 
       imageBtn2.onclick = () => {
         const arg = this.getAttribute('index-pos');
-        const clb = this.getAttribute('next-clb');
+        const clb = this.getAttribute('edit-clb');
         eval(`${clb}('${arg}')`);
       };
 
@@ -86,25 +87,47 @@ class FileBlock extends HTMLElement {
     }
 
     //////////////////////////////////////
-    // CREATING BACK BUTTON
+    // CREATING NEXT BUTTON
 
-    if (this.getAttribute('index-pos') !== '0') {
+    if (this.getAttribute('last') === 'false') {
       const insideFileInfoBtnBar3 = document.createElement('div');
       insideFileInfoBtnBar3.classList.add('dv-btn-bar');
 
       const imageBtn3 = document.createElement('img');
-      imageBtn3.src = getImageByBtn('back');
+      imageBtn3.src = getImageByBtn('next');
       imageBtn3.classList.add('p-btn-bar');
 
       imageBtn3.onclick = () => {
         const arg = this.getAttribute('index-pos');
-        const clb = this.getAttribute('back-clb');
+        const clb = this.getAttribute('next-clb');
         eval(`${clb}('${arg}')`);
       };
 
       insideFileInfoBtnBar3.appendChild(imageBtn3);
 
       insideFileInfoBtns.appendChild(insideFileInfoBtnBar3);
+    }
+
+    //////////////////////////////////////
+    // CREATING BACK BUTTON
+
+    if (this.getAttribute('index-pos') !== '0') {
+      const insideFileInfoBtnBar4 = document.createElement('div');
+      insideFileInfoBtnBar4.classList.add('dv-btn-bar');
+
+      const imageBtn4 = document.createElement('img');
+      imageBtn4.src = getImageByBtn('back');
+      imageBtn4.classList.add('p-btn-bar');
+
+      imageBtn4.onclick = () => {
+        const arg = this.getAttribute('index-pos');
+        const clb = this.getAttribute('back-clb');
+        eval(`${clb}('${arg}')`);
+      };
+
+      insideFileInfoBtnBar4.appendChild(imageBtn4);
+
+      insideFileInfoBtns.appendChild(insideFileInfoBtnBar4);
     }
 
     fileInfoElement.appendChild(insideFileInfoBtns);
@@ -131,6 +154,8 @@ function getImageByBtn(button: string): string {
   switch (button) {
     case 'cancel':
       return '../../../src/assets/button/btn-cancel.png';
+    case 'edit':
+      return '../../../src/assets/button/edit.png';
     case 'next':
       return '../../../src/assets/button/btn-next.png';
     case 'back':

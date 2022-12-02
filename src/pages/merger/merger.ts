@@ -47,6 +47,7 @@ function drawFile(element: FileInfo, index: number): void {
     'delete-clb',
     `${callbackDeleteFile.name}`
   );
+  fileElement.setAttribute('edit-clb', `${callbackEditFile.name}`);
   fileElement.setAttribute(
     'next-clb',
     `${callbackNextPosition.name}`
@@ -66,6 +67,23 @@ function callbackDeleteFile(position: string): void {
 
   updateView();
 }
+
+function callbackEditFile(position: string): void {
+  const numericPosition = Number(position);
+  window.baseAPI.sendMsg('openPageConfig', fileList[numericPosition]);
+}
+
+window.baseAPI.onWindowClose((res: FileInfo) => {
+  const index = fileList.findIndex(
+    (element) => element.id === res.id
+  );
+
+  if (index !== -1) {
+    fileList[index] = res;
+  }
+  console.log('RECEBIDO TUDO CERTINHO', res);
+  console.log('LISTA ATUALIZADA...', fileList);
+});
 
 function callbackNextPosition(position: string): void {
   const numericPos = Number(position);

@@ -1,0 +1,52 @@
+.sub-main-div-img {
+  width: 297px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid #367c8ccf;
+  height: 421px;
+}
+
+.sub-main-div-img-btn {
+  margin-left: 20px;
+  width: 220px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid #367c8ccf;
+  height: 421px;
+}
+
+.btns-div-edit {
+  text-align: center;
+  margin-top: 18px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.main-div-margin-pc {
+  display: flex;
+  flex-direction: row;
+}
+
+.dv-body {
+  margin: 0px 0px 0px 0px;
+  border: 1px solid var(--app-symb-color);
+  background-color: var(--app-back-color);
+  height: 632px;
+}
+
+#dv-image-bg {
+  background-color: white;
+  width: 297px;
+  height: 421px;
+}
+
+#dv-image-edit {
+  /* left: 40px;
+  top: 140px; */
+  position: absolute;
+}

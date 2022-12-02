@@ -8,16 +8,3 @@ export function openLinkGithub(): void {
     'https://github.com/alvarohsp'
   );
 }
-
-// export class WindowHeader extends HTMLElement {
-//   constructor() {
-//     super();
-
-//     const divTop = document.createElement('div');
-//     divTop.classList.add('top-window');
-//     this.appendChild(divTop);
-//   }
-//   connectedCallback() {}
-// }
-
-// customElements.define('window-header', WindowHeader);

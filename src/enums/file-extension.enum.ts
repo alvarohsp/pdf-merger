@@ -6,14 +6,14 @@ export enum FileExtensionEnum {
 
 export function getFileExtesionByUrl(url: string): FileExtensionEnum {
   const lastDotIndex = url.lastIndexOf('.');
-  const ext = url.substring(lastDotIndex).toLowerCase();
+  const ext = url.substring(lastDotIndex + 1).toLowerCase();
 
   switch (ext) {
-    case '.pdf':
+    case 'pdf':
       return FileExtensionEnum.PDF;
-    case '.jpg':
+    case 'jpg':
       return FileExtensionEnum.JPG;
-    case '.png':
+    case 'png':
       return FileExtensionEnum.PNG;
   }
 }

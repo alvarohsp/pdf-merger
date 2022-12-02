@@ -6,6 +6,7 @@ import { handleSquirrelEvent } from './handle-squirrel';
 import { PdfUtil } from './utils/pdf-utils';
 
 let mainWindow: BrowserWindow;
+let pageConfigWindow: BrowserWindow;
 
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -38,6 +39,35 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
   mainWindow.removeMenu();
   // mainWindow.webContents.openDevTools();
+};
+
+const createPageConfigWindow = () => {
+  pageConfigWindow = new BrowserWindow({
+    parent: mainWindow,
+    modal: true,
+    show: true,
+    width: 785,
+    height: 634,
+    maximizable: true,
+    resizable: false,
+    frame: false,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#2f3241',
+      symbolColor: '#74b1be',
+      height: 40,
+    },
+    transparent: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+    },
+  });
+
+  pageConfigWindow.loadFile(
+    path.join(__dirname, 'pages/page-config/page-config.html')
+  );
+  // pageConfigWindow.removeMenu();
+  // pageConfigWindow.webContents.openDevTools();
 };
 
 const changePage = (pageUrl: string) => {
@@ -108,7 +138,9 @@ const showSaveFile = (
     });
 };
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -126,9 +158,9 @@ ipcMain.on('mergeButton', (event, args) => {
   changePage(args);
 });
 
-ipcMain.on('browseButton', () => {
-  showOpenFiles('Selecione os arquivos:', 'Selecione os arquivos');
-});
+// ipcMain.on('browseButton', () => {
+//   showOpenFiles('Selecione os arquivos:', 'Selecione os arquivos');
+// });
 
 ipcMain.on('openExShell', (event, args: string) => {
   shell.openExternal(args);
@@ -137,6 +169,21 @@ ipcMain.on('openExShell', (event, args: string) => {
 ipcMain.on('mergeFilesAndSave', async (event, args: FileInfo[]) => {
   const binary = await PdfUtil.mergePdf(args);
   showSaveFile('Salvar como', 'Salvar como', binary);
+});
+
+ipcMain.on('openPageConfig', (event, args) => {
+  console.log('IPC MAIN.....PAGE CONFIG.....', args);
+  createPageConfigWindow();
+  pageConfigWindow.webContents.send('pageEdit', args);
+});
+
+ipcMain.on('close-edit-window', () => {
+  pageConfigWindow.close();
+});
+
+ipcMain.on('transfer-file', (event, args: FileInfo) => {
+  console.log('IPC MAIN.....CLOSE WINDOW.....', args);
+  mainWindow.webContents.send('return-file', args);
 });
 
 ipcMain.handle('browseFiles', async () => {
