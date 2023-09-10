@@ -38,6 +38,63 @@
           <div class="text-div">
             <p>Options</p>
           </div>
+          <div class="option-btn-div">
+            <div class="input-opt-dv">
+              <div class="lb-bx text-div">
+                <label class="lb-config" for="input-x">X:</label>
+                <label class="lb-config" for="input-y">Y:</label>
+                <label class="lb-config" for="input-w">Width:</label>
+                <label class="lb-config" for="input-h">Height:</label>
+              </div>
+              <div class="input-bx" onkeyup="onEnterKey(event)">
+                <input
+                  type="text"
+                  name="input-x"
+                  id="input-x"
+                  onblur="applyXPos()"
+                />
+                <input
+                  type="text"
+                  name="input-y"
+                  id="input-y"
+                  onblur="applyYPos()"
+                />
+                <input
+                  type="text"
+                  name="input-w"
+                  id="input-w"
+                  onblur="applyWSize()"
+                />
+                <input
+                  type="text"
+                  name="input-h"
+                  id="input-h"
+                  onblur="applyHSize()"
+                />
+              </div>
+              <div class="lb-bx-px text-div">
+                <label class="lb-config">px</label>
+                <label class="lb-config">px</label>
+                <label class="lb-config">px</label>
+                <label class="lb-config">px</label>
+              </div>
+            </div>
+
+            <div class="btn-opt-dv">
+              <round-button
+                label="Centralize"
+                onclick="centralizeImage()"
+              ></round-button>
+              <round-button
+                label="Stretch"
+                onclick="stretchImage()"
+              ></round-button>
+              <round-button
+                label="Reset"
+                onclick="resetImage()"
+              ></round-button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

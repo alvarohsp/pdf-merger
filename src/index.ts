@@ -13,7 +13,6 @@ if (require('electron-squirrel-startup')) {
 }
 
 if (handleSquirrelEvent(app)) {
-  console.log('');
   app.quit();
 }
 
@@ -66,7 +65,6 @@ const createPageConfigWindow = () => {
   pageConfigWindow.loadFile(
     path.join(__dirname, 'pages/page-config/page-config.html')
   );
-  // pageConfigWindow.removeMenu();
   // pageConfigWindow.webContents.openDevTools();
 };
 
@@ -96,7 +94,7 @@ const showOpenFiles = async (
     title: title,
     filters: [
       {
-        extensions: ['pdf', 'png', 'jpg'],
+        extensions: ['pdf', 'png', 'jpg', 'jpeg'],
         name: 'All Supported Formats',
       },
       {
@@ -104,7 +102,7 @@ const showOpenFiles = async (
         name: 'Documents',
       },
       {
-        extensions: ['png', 'jpg'],
+        extensions: ['png', 'jpg', 'jpeg'],
         name: 'Images',
       },
     ],
@@ -158,10 +156,6 @@ ipcMain.on('mergeButton', (event, args) => {
   changePage(args);
 });
 
-// ipcMain.on('browseButton', () => {
-//   showOpenFiles('Selecione os arquivos:', 'Selecione os arquivos');
-// });
-
 ipcMain.on('openExShell', (event, args: string) => {
   shell.openExternal(args);
 });
@@ -172,7 +166,6 @@ ipcMain.on('mergeFilesAndSave', async (event, args: FileInfo[]) => {
 });
 
 ipcMain.on('openPageConfig', (event, args) => {
-  console.log('IPC MAIN.....PAGE CONFIG.....', args);
   createPageConfigWindow();
   pageConfigWindow.webContents.send('pageEdit', args);
 });
@@ -182,7 +175,6 @@ ipcMain.on('close-edit-window', () => {
 });
 
 ipcMain.on('transfer-file', (event, args: FileInfo) => {
-  console.log('IPC MAIN.....CLOSE WINDOW.....', args);
   mainWindow.webContents.send('return-file', args);
 });
 

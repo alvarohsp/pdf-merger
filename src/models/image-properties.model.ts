@@ -8,10 +8,10 @@ export class ImageProperties {
 
   constructor(file: FileInfo) {
     if (file.customProps) {
-      this.x = file.xPos > 0 ? file.xPos + 1 : 0;
-      this.y = file.yPos;
-      this.w = file.width;
-      this.h = file.height;
+      this.w = file.width * 2;
+      this.h = file.height * 2;
+      this.x = this.initXPos(file.xPos) * 2;
+      this.y = this.initYPos(file.yPos) * 2;
     } else {
       let tempImgW = file.width;
       let tempImgH = file.height;
@@ -31,5 +31,15 @@ export class ImageProperties {
       this.x = 595 / 2 - tempImgW / 2;
       this.y = 842 / 2 - tempImgH / 2;
     }
+  }
+
+  private initXPos(originalX: number): number {
+    const result = originalX - 122;
+    return result > 0 ? result + 1 : 0;
+  }
+
+  private initYPos(originalY: number): number {
+    const result = 634 - originalY - 63 - (this.h / 2 + 7);
+    return result;
   }
 }

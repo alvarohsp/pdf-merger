@@ -1,6 +1,6 @@
 module.exports = {
   generatorOpts: {
-    minified: false,
+    minified: true,
   },
   // plugins: [
   //   [

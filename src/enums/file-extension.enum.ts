@@ -12,6 +12,7 @@ export function getFileExtesionByUrl(url: string): FileExtensionEnum {
     case 'pdf':
       return FileExtensionEnum.PDF;
     case 'jpg':
+    case 'jpeg':
       return FileExtensionEnum.JPG;
     case 'png':
       return FileExtensionEnum.PNG;

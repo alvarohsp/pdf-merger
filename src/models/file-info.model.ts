@@ -14,14 +14,17 @@ export class FileInfo {
   extension: FileExtensionEnum;
   width: number;
   height: number;
+  originalWidth?: number;
+  originalHeight?: number;
   customProps: boolean;
   xPos: number;
   yPos: number;
 
   constructor(url: string, size: number) {
     this.id = randomUUID().substring(24);
-    this.name = /(.*)(\\|\/)(.*\.\w{3})/.exec(url)[3];
+    this.name = /(.*)(\\|\/)(.*\.\w*)/.exec(url)[3];
     this.customProps = false;
+
     this.url = url;
     this.extension = getFileExtesionByUrl(url);
     this.size =
@@ -33,6 +36,8 @@ export class FileInfo {
       const dimensions = imageSize(this.url);
       this.width = dimensions.width;
       this.height = dimensions.height;
+      this.originalHeight = this.height;
+      this.originalWidth = this.width;
     }
   }
 }

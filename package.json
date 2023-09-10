@@ -1,7 +1,7 @@
 {
   "name": "pdf-merger",
   "productName": "PDF Merger",
-  "version": "0.7.0-beta",
+  "version": "1.0.0-rc1",
   "description": "Simple PDF utility tool",
   "main": "dist/index.js",
   "scripts": {

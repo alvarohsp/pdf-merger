@@ -81,8 +81,6 @@ window.baseAPI.onWindowClose((res: FileInfo) => {
   if (index !== -1) {
     fileList[index] = res;
   }
-  console.log('RECEBIDO TUDO CERTINHO', res);
-  console.log('LISTA ATUALIZADA...', fileList);
 });
 
 function callbackNextPosition(position: string): void {
@@ -129,7 +127,7 @@ function hideShowButtons(show: boolean): void {
 
 export function saveFileList(): void {
   window.baseAPI.sendMsg('mergeFilesAndSave', fileList);
-  setTimeout(() => {
-    clearFileList();
-  }, 250);
+  // setTimeout(() => {
+  //   clearFileList();
+  // }, 250);
 }
